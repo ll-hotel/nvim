@@ -22,12 +22,8 @@ return require('packer').startup(function(use)
 		requires = {{ 'nvim-lua/plenary.nvim' }}
 	})
 	use('42Paris/42header')
-	use({
-		'catppuccin/nvim', name = 'catppuccin',
-		config = function ()
-			vim.cmd.colorscheme('catppuccin-mocha')
-		end
-	})
+	-- use({ 'catppuccin/nvim', name = 'catppuccin', config = function () vim.cmd.colorscheme('catppuccin-mocha') end })
+	use ({'folke/tokyonight.nvim', config = function () vim.cmd.colorscheme('tokyonight-night') end });
 	use({
 		'nvim-lualine/lualine.nvim',
 		requires = { 'nvim-tree/nvim-web-devicons', opt = true }
