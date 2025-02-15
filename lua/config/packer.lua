@@ -48,12 +48,12 @@ return require('packer').startup(function(use)
 		}
 	})
 	-- use {
-		-- 	'azratul/live-share.nvim',
-		-- 	requires = {'jbyuki/instant.nvim'}
-		-- }
-		use { 'rstacruz/vim-closer' }
+	-- 	'azratul/live-share.nvim',
+	-- 	requires = {'jbyuki/instant.nvim'}
+	-- }
+	use { 'rstacruz/vim-closer' }
 
-		if packer_bootstrap then
-			require('packer').sync()
-		end
-	end)
+	if packer_bootstrap then
+		require('packer').sync()
+	end
+end)
