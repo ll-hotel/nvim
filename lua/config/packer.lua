@@ -51,7 +51,7 @@ return require('packer').startup(function(use)
 	-- 	'azratul/live-share.nvim',
 	-- 	requires = {'jbyuki/instant.nvim'}
 	-- }
-	use { 'rstacruz/vim-closer' }
+	use { 'jiangmiao/auto-pairs' }
 
 	if packer_bootstrap then
 		require('packer').sync()
