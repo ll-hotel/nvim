@@ -23,7 +23,18 @@ require('pckr').add({
 	-- Post-install/update hook with neovim command
 	{
 		'nvim-treesitter/nvim-treesitter',
-		run = ':TSUpdate'
+		run = ':TSUpdate',
+		config = function()
+			require('nvim-treesitter.configs').setup({
+				ensure_installed = { "c", "lua", "vim", "vimdoc", "query" },
+				sync_install = false,
+				auto_install = true,
+				highlight = {
+					enable = true,
+					additional_vim_regex_highlighting = false,
+				},
+			})
+		end
 	},
 	{
 		'catppuccin/nvim',
@@ -65,7 +76,7 @@ require('pckr').add({
 				vim.keymap.set("i", "<C-h>", function() vim.lsp.buf.signature_help() end, opts)
 				vim.keymap.set("n", "<leader>]s", function() vim.lsp.buf.workspace_symbol() end, opts)
 				vim.keymap.set("n", "<leader>dv", function() vim.diagnostic.open_float() end, opts)
-				vim.keymap.set("n", "<leader>dn", function() vim.diagnostic.goto_prev() end, opts)
+				vim.keymap.set("n", "<leader>dn", function() vim.diagnostic.goto_next() end, opts)
 				vim.keymap.set("n", "<leader>dp", function() vim.diagnostic.goto_prev() end, opts)
 				vim.keymap.set("n", "<leader>ca", function() vim.lsp.buf.code_action() end, opts)
 				vim.keymap.set("n", "<leader>rn", function() vim.lsp.buf.rename() end, opts)
@@ -73,13 +84,11 @@ require('pckr').add({
 
 			local lsp_capabilities = require('cmp_nvim_lsp').default_capabilities()
 			vim.lsp.enable('clangd')
-			vim.lsp.config('clangd', {
-				capabilities = lsp_capabilities,
-			})
+			vim.lsp.config('clangd', { capabilities = lsp_capabilities, })
 			vim.lsp.enable('zls')
-			vim.lsp.config('zls', {
-				capabilities = lsp_capabilities,
-			})
+			vim.lsp.config('zls', { capabilities = lsp_capabilities, })
+			vim.lsp.enable('rust_analyzer')
+			vim.lsp.config('rust_analyzer', { capabilities = lsp_capabilities, })
 
 			vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(
 				vim.lsp.handlers.hover, {border = 'rounded'}
@@ -129,6 +138,12 @@ require('pckr').add({
 					['<C-k>'] = cmp.mapping.scroll_docs(4),
 				})
 			})
+		end
+	},
+	{
+		'mbbill/undotree',
+		config = function()
+			vim.keymap.set('n', '<leader><F5>', vim.cmd.UndotreeToggle)
 		end
 	}
 })
